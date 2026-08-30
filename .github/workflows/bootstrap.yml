@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Rebuild exact approved V3.31 source
         run: |
-          cat .bootstrap/v331_0.b64 .bootstrap/v331_1a.b64 .bootstrap/v331_1.b64 .bootstrap/v331_3.b64 > /tmp/v331.b64
+          cat .bootstrap/v331_0.b64 .bootstrap/v331_p1a.b64 .bootstrap/v331_p1b.b64 .bootstrap/v331_1.b64 .bootstrap/v331_3.b64 > /tmp/v331.b64
           base64 -d /tmp/v331.b64 > /tmp/v331.html.gz
           gzip -dc /tmp/v331.html.gz > index.html
           echo "6051ad79c66d23fcb7fbb1da1582035fda9a94c01623232426efff67136e153e  index.html" | sha256sum -c -
