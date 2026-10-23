@@ -1,0 +1,27 @@
+name: Package WordPress preview plugin
+on:
+  push:
+    branches: [feature/wp-bfcm-staging-2026]
+    paths:
+      - 'wordpress/**'
+      - '.github/workflows/ttf-bfcm-plugin.yml'
+  workflow_dispatch:
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check PHP syntax
+        run: |
+          php -l wordpress/ttf-bfcm-preview.php
+          php -l wordpress/templates/ttf-bfcm-template.php
+      - name: Package plugin
+        run: |
+          mkdir -p dist/ttf-bfcm-preview
+          cp -R wordpress/. dist/ttf-bfcm-preview/
+          (cd dist && zip -r ttf-bfcm-preview.zip ttf-bfcm-preview)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ttf-bfcm-preview-plugin
+          path: dist/ttf-bfcm-preview.zip
+          retention-days: 30
